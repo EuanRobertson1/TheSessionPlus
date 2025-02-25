@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name= "viewport" content="width=device-width, intitial-scale=1.0">
+        <title>Session+ Home</title>
+        <link rel="stylesheet" href="src/styles.css">
+        <link rel="manifest" href="manifest.json">
+        <script src="app.js"></script>
+    </head>
+
+    <body>
+        <header class="app-header">
+            <h1>The Session+</h1>
+        </header>
+
+        <!--Search Bar for searching tunes -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search for a Tune" id="searchInput">
+            <button id="searchButton"></button>
+        </div>
+
+        <!--Upcoming Events -->
+        <section class="upcoming-events">
+            <h2>Upcoming Events</h2>
+            <div class="event-grid">
+
+            </div>
+        </section>
+
+        <!-- Bottom NavBar -->
+         <nav class="bottom-nav">
+         <button id="findSessions"> Find Nearby Sessions</button>
+         <button id="savedTunes"> Saved Tunes</button>
+         <button id="identifyTune"> Identify a Tune</button>
+         </nav>
+
+        <!-- Install Button-->
+        <button id="installButton" style="display: none;">Install Session+</button>
+
+    </body>
+</html>
