@@ -58,20 +58,51 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    max-width: 430px; /* Prevents it from stretching on wider screens */
-    background-color: black;
-    padding: 12px 0;
+    max-width: 430px; /* Match the body's max-width */
+    background: rgba(255, 255, 255, 0.9); /* iOS-style translucent white */
+    backdrop-filter: blur(10px); /* Adds blur effect like iOS */
+    padding: 10px 0;
     display: flex;
     justify-content: space-around;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
 }
 
 /* Navigation Buttons */
 .bottom-nav button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
+    all: unset; /* Remove default button styles */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    flex: 1; /* Make buttons evenly spaced */
+    font-size: 12px;
+    color: #555;
+    transition: all 0.2s ease-in-out;
+}
+
+/* iOS-style icons */
+.bottom-nav .iconify {
+    font-size: 24px; /* Larger icons */
+    margin-bottom: 4px;
+}
+
+/* iOS-style selected button effect */
+.bottom-nav button:active, .bottom-nav button:focus {
+    color: #000;
+    transform: scale(1.05); /* Slight pop effect */
+}
+
+/* Label styling */
+.nav-label {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.bottom-nav button.active {
+    color: black;
+    font-weight: bold;
 }
 
 /* Install Button (Fixed Position) */
