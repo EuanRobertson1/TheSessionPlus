@@ -4,9 +4,11 @@
         <meta charset="UTF-8">
         <meta name= "viewport" content="width=device-width, intial-scale=1.0, maximum-scale=1">
         <title>Session+ Home</title>
-        <link rel="stylesheet" href="src/styles.css">
+        <link rel="stylesheet" href="../src/styles.css">
         <link rel="manifest" href="manifest.json">
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
 
         <script src="app.js"></script>
     </head>
@@ -19,7 +21,10 @@
         <!--Search Bar for searching tunes -->
         <div class="search-bar">
             <input type="text" placeholder="Search for a Tune" id="searchInput">
-            <button id="searchButton"></button>
+            <button id="searchButton">
+                <span class="iconify" data-icon="mdi:magnify" data-inline="false"></span>
+
+            </button>
         </div>
 
         <!--Upcoming Events -->
@@ -31,11 +36,22 @@
         </section>
 
         <!-- Bottom NavBar -->
-         <nav class="bottom-nav">
-         <button id="findSessions"> Find Nearby Sessions</button>
-         <button id="savedTunes"> Saved Tunes</button>
-         <button id="identifyTune"> Identify a Tune</button>
-         </nav>
+        <nav class="bottom-nav">
+            <button id="findSessions">
+                <span class="iconify" data-icon="tabler:map-search" data-inline="false"></span>
+                <span class="nav-label">Sessions</span>
+            </button>
+        
+            <button id="savedTunes">
+                <span class="iconify" data-icon="tabler:music" data-inline="false"></span>
+                <span class="nav-label">Saved</span>
+            </button>
+        
+            <button id="identifyTune">
+                <span class="iconify" data-icon="tabler:waveform" data-inline="false"></span>
+                <span class="nav-label">Identify</span>
+            </button>
+        </nav>
 
         <!-- Install Button-->
         <button id="installButton" style="display: none;">Install Session+</button>
