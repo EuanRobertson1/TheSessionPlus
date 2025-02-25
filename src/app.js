@@ -25,3 +25,11 @@ window.addEventListener("appinstalled", () => {
     console.log("PWA Installed");
     document.getElementById("installButton").style.display = "none";
 });
+
+document.querySelectorAll(".bottom-nav button").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".bottom-nav button").forEach(b => b.classList.remove("active"));
+        button.classList.add("active");
+    });
+});
+
