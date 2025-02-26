@@ -11,10 +11,12 @@ body {
     /* Ensure full height and proper layout */
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    max-width: 100vw;
-    overflow: hidden; /* Prevent whole-page scrolling */
+    height: 100vh; /* Full viewport height */
+    max-width: 430px; /* Keep a mobile-friendly width */
+    margin: 0 auto; /* Centers content on large screens */
+    overflow: hidden; /* Prevents whole-page scrolling */
 }
+
 
 
 /* Page Header */
@@ -79,14 +81,14 @@ body {
 
 
 .upcoming-events {
-    flex: 1; /* Expands to fill available space */
-    overflow-y: auto; /* Enables scrolling */
-    padding: 10px;
+    flex: 1; /* Fills the space between search bar & bottom nav */
+    overflow-y: auto; /* Allows scrolling inside this section */
+    padding: 15px;
     background-color: #500000;
-    border-radius: 10px;
-    margin: 0 15px 15px 15px;
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+    border-radius: 15px;
+    margin: 0 10px 10px 10px;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
 }
 
 .upcoming-events::-webkit-scrollbar {
@@ -96,7 +98,8 @@ body {
 #event-list {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Adds spacing between events */
+    gap: 12px; /* Spacing between events */
+    padding-bottom: 15px; /* Prevents bottom content from being cut off */
 }
 
 .event-box {
