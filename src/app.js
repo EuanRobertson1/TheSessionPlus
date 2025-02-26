@@ -53,15 +53,20 @@ function displayEvents(events) {
         const eventItem = document.createElement("div");
         eventItem.classList.add("event-box");
 
+        // Extract town and country correctly
+        const town = event.town?.name || "Unknown Town";
+        const country = event.country?.name || "Unknown Country";
+
         eventItem.innerHTML = `
             <h3>${event.name}</h3>
-            <p><strong>Location:</strong> ${event.town}, ${event.country}</p>
-            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Location:</strong> ${town}, ${country}</p>
+            <p><strong>Date:</strong> ${new Date(event.date).toLocaleString()}</p>
             <a href="https://thesession.org/events/${event.id}" target="_blank">View Details</a>
         `;
 
         eventList.appendChild(eventItem);
     });
 }
+
 
 
