@@ -1,15 +1,21 @@
-/* Styling used on all pages */
-/*ChatGPT use to assist styling to align it with design*/
+
+/*ChatGPT used to assist styling to align it with design*/
 body {
-    font-family:'EB Garamond', serif;
+    font-family: 'EB Garamond', serif;
     margin: 0;
     padding: 0;
     background-color: #400000;
     color: white;
     text-align: center;
-    max-width: 430px;
-    margin:auto;
+    
+    /* Ensure full height and proper layout */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 100vw;
+    overflow: hidden; /* Prevent whole-page scrolling */
 }
+
 
 /* Page Header */
 .app-header {
@@ -73,12 +79,24 @@ body {
 
 
 .upcoming-events {
-    max-height: 200px;
-    overflow-y: auto;
+    flex: 1; /* Expands to fill available space */
+    overflow-y: auto; /* Enables scrolling */
     padding: 10px;
     background-color: #500000;
     border-radius: 10px;
-    margin: 15px;
+    margin: 0 15px 15px 15px;
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+.upcoming-events::-webkit-scrollbar {
+    display: none;
+}
+
+#event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds spacing between events */
 }
 
 .event-box {
