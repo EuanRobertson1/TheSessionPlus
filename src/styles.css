@@ -17,6 +17,44 @@ body {
     overflow: hidden; /* Prevents whole-page scrolling */
 }
 
+.page {
+    display: none; /* Hide all pages by default */
+    position: absolute;
+    top: 60px; /* Push below header */
+    width: 100%;
+    height: calc(100vh - 120px); /* Fill remaining space */
+    padding: 15px;
+    overflow: auto;
+}
+
+/* Show only the active page */
+.page.active {
+    display: block;
+}
+
+/* Ensure the map container is correctly sized */
+#map-container {
+    width: 100%;
+    height: 300px; /* Adjust as needed */
+    background-color: #ddd; /* Placeholder */
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Style Back Button */
+#backToHome {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
 
 
 /* Page Header */
