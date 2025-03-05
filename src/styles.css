@@ -25,16 +25,17 @@ body {
 
 /* Ensure the map container is correctly sized */
 #map-container {
-    top: 150px;
+    width: 90%;
+    max-width: 400px;
     position: absolute;
-    width: 85%;
-    max-width: 430px; /* Restrict to mobile size */
-    height: 50vh; /* Keep height proportional */
+    top: 95px;
+    left: 20px;
+    height: 50vh; /* Adjust as needed */
     background-color: #ddd;
-    border-radius: 10px;
-    
-    margin: 0 auto; /* Center on larger screens */
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 
 #map {
     width: 100%;
@@ -45,15 +46,20 @@ body {
 /* Back button styling */
 .back-button {
     position: absolute;
-    top: 70px;
-    left: 10px;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
-    color: white;
-    font-size: 18px;
     cursor: pointer;
-    padding: 10px;
+    padding: 5px;
 }
+
+.back-button .iconify {
+    font-size: 34px; /* Adjust icon size */
+    color: white; /* Ensure it's visible */
+}
+
 
 /* Page Header */
 .app-header {
@@ -233,13 +239,26 @@ body {
     background-color: #500000;
 
     position: absolute;
-    top: 60px; /* Below the header */
+    top: 60px; /* Below the yellow header */
     left: 0;
     width: 100%;
-    height: calc(100vh - 120px); /* Fills screen but leaves space for header & navbar */
+    height: calc(100vh - 120px); /* Fit between header & navbar */
     
     max-width: 430px; /* Keep mobile-friendly */
     margin: 0 auto;
     overflow: hidden; /* Prevent scrolling */
+}
+
+.sessions-header {
+    color: white;
+    font-weight: bold;
+    top: 50px;
+    font-size: 25px;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
