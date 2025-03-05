@@ -30,24 +30,23 @@
         <section class="upcoming-events">
             <h2>Upcoming Events</h2>
             <div id="event-list" class="scrollable-events"></div>
-
-            
         </section>
 
-        <!-- Sessions Page (hidden by default)-->
-        <section id="sessionsPage" class="page hidden">
-            <button id="backToHome">Back</button>
+        <!-- Sessions Page (Hidden Initially) -->
+        <section id="sessionsPage" class="page" style="display: none;">
+            <button id="backToHome" class="back-button">⬅ Back</button>
             <h2>Sessions Near You</h2>
             <div id="map-container">
-              <div id="map"></div>  
+                <div id="map"></div>
             </div>
         </section>
 
+
         <!-- Bottom NavBar -->
         <nav class="bottom-nav">
-            <button id="findSessions">
-                <span class="iconify" data-icon="tabler:map-search" data-inline="false"></span>
-                <span class="nav-label">Sessions</span>
+            <button data-page="sessionsPage">
+                <span class="iconify" data-icon="tabler:map-search"></span>
+                <span class="nav-label">Find Nearby Sessions</span>
             </button>
         
             <button id="savedTunes">
