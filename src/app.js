@@ -98,7 +98,7 @@ function displayEvents(events) {
         eventItem.innerHTML = `
             <h3>${event.name}</h3>
             <p><strong>Location:</strong> ${town}, ${country}</p>
-            <p><strong>Date:</strong> ${new Date(event.date).toLocaleString()}</p>
+            <p><strong>Date:</strong> ${new Date(event.dtstart).toLocaleString()}</p>
             <a href="https://thesession.org/events/${event.id}" target="_blank">View Details</a>
         `;
 
