@@ -36,9 +36,47 @@ document.querySelectorAll(".bottom-nav button").forEach(button => {
 import { fetchUpcomingEvents } from "../src/sessionAPI.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // Fetch and display events
     const events = await fetchUpcomingEvents();
     displayEvents(events);
+
+    // Function to switch pages without affecting existing styles
+    function switchPage(pageId) {
+        const searchBar = document.querySelector(".search-bar");
+        const homeContent = document.querySelector(".upcoming-events");
+        const sessionsContent = document.querySelector("#sessionsPage");
+    
+        if (pageId === "sessionsPage") {
+            searchBar.style.display = "none"; // Hide search bar
+            homeContent.style.display = "none"; // Hide home content
+            sessionsContent.style.display = "block"; // Show sessions page
+        } else {
+            searchBar.style.display = "flex"; // Show search bar on home page
+            homeContent.style.display = "block"; // Show home content
+            sessionsContent.style.display = "none"; // Hide sessions page
+        }
+    }
+    
+    
+
+    // Handle navbar clicks
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+        button.addEventListener("click", () => {
+            const pageId = button.getAttribute("data-page");
+            if (pageId) switchPage(pageId);
+        });
+    });
+
+    // Handle back button
+    document.getElementById("backToHome").addEventListener("click", () => {
+        switchPage("homePage");
+    });
+
+    // Ensure the home page is visible initially
+    switchPage("homePage");
 });
+
+
 
 function displayEvents(events) {
     const eventList = document.getElementById("event-list");
