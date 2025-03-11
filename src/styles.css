@@ -140,6 +140,7 @@ body {
     flex: 1; /* Fills the space between search bar & bottom nav */
     overflow-y: auto; /* Allows scrolling inside this section */
     padding: 10px;
+    padding-bottom: 200px;
     margin-top: 150px;
     background-color: #500000;
     border-radius: 15px;
