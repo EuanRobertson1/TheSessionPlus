@@ -169,7 +169,7 @@ function displayEvents(events) {
         return;
     }
 
-    events.slice(0, 10).forEach(event => {
+    events.slice(0, 50).forEach(event => {
         const eventItem = document.createElement("div");
         eventItem.classList.add("event-box");
 
