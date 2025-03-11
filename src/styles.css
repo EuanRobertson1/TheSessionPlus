@@ -145,6 +145,7 @@ body {
     border-radius: 15px;
     scrollbar-width: none; /* Hide scrollbar in Firefox */
     -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+    position: relative;
 }
 
 .upcoming-events::-webkit-scrollbar {
@@ -262,3 +263,13 @@ body {
     position: relative;
 }
 
+/* Back button for Search Results */
+.search-back {
+    position: absolute;
+    top:50px;  /* Position within .upcoming-events */
+    left: 30px; /* Align to the left */
+    font-size: 34px;
+    color: white;
+    z-index: 10; /* Ensure it stays above */
+    display: none; /* Hidden by default */
+}

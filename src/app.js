@@ -74,7 +74,89 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Ensure the home page is visible initially
     switchPage("homePage");
+
+    // Select the search input and button
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+
+    // Function to fetch and display tunes
+    async function searchTunes(query) {
+        const url = `https://thesession.org/tunes/search?q=${encodeURIComponent(query)}&format=json`;
+    
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("API request failed");
+    
+            const data = await response.json();
+            console.log("API Response:", data); // Log to check if API returns results
+    
+            displaySearchResults(data.tunes); // Update the event list with search results
+            document.getElementById("resetSearch").style.display = "block";
+
+        } catch (error) {
+            console.error("Error fetching tunes:", error);
+        }
+    }
+    
+    document.getElementById("resetSearch").addEventListener("click", async () => {
+        const events = await fetchUpcomingEvents();
+        displayEvents(events);
+    
+        document.querySelector(".upcoming-events h2").textContent = "Upcoming Events"; // Reset heading
+        document.getElementById("resetSearch").style.display = "none"; // Hide back button
+        document.getElementById("searchInput").value = ""; //clear search
+    });
+    
+
+    // Handle search button click
+    searchButton.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchTunes(query); // Call API with search term
+        }
+    });
+
+    // Handle "Enter" key in search bar
+    searchInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchTunes(query);
+            }
+        }
+    });
+
+
+
 });
+
+function displaySearchResults(tunes) {
+    const eventList = document.getElementById("event-list");
+    const header = document.querySelector(".upcoming-events h2"); // Target the heading
+
+    eventList.innerHTML = ""; // Clear existing events
+    header.textContent = "Search Results"; // Change header text
+
+
+    if (!tunes.length) {
+        eventList.innerHTML = "<p>No tunes found.</p>";
+        return;
+    }
+
+    tunes.slice(0, 10).forEach(tune => {
+        const tuneItem = document.createElement("div");
+        tuneItem.classList.add("event-box");
+
+        tuneItem.innerHTML = `
+            <h3>${tune.name}</h3>
+            <p><strong>Type:</strong> ${tune.type || "None"}</p>
+            <a href="${tune.url}" target="_blank">View Tune</a>
+        `;
+
+        eventList.appendChild(tuneItem);
+    });
+}
+
 
 
 
