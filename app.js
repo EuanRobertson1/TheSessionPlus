@@ -328,11 +328,12 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault(); // Prevents automatic banner
-    deferredPrompt = event; // Store the event for later use
+    event.preventDefault();
+    deferredPrompt = event;
 
-    // Show your own install button (make sure it's in your HTML)
-    document.getElementById("installButton").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("installButton").style.display = "block";
+    }, 3000); // Delays install button for 3 sec (prevents issues)
 });
 
 // Handle install button click
