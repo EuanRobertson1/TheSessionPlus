@@ -151,6 +151,7 @@ function displaySearchResults(tunes) {
             <h3>${tune.name}</h3>
             <p><strong>Type:</strong> ${tune.type || "None"}</p>
             <a href="${tune.url}" target="_blank">View Tune</a>
+            <button class="save-tune" data-id="${tune.id}">Save Tune</button>
         `;
 
         eventList.appendChild(tuneItem);
