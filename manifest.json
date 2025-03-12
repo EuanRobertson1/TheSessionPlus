@@ -1,22 +1,20 @@
 {
-    "name": "Session+",
-    "short_name": "Session+",
-    "description": "Find sessions, search tunes, and identify melodies!",
-    "start_url": "home.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffcc00",
-    "icons": [
-      {
-        "src": "/icons/icon-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "/icons/icon-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ]
-  }
-  
+  "name": "Session Plus",
+  "short_name": "Session+",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#500000",
+  "background_color": "#500000"
+}
