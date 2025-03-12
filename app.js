@@ -1,30 +1,4 @@
-let deferredPrompt;
 
-// Detect if the PWA can be installed
-window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-    document.getElementById("installButton").style.display = "block";
-});
-
-// Handle Install Button Click
-document.getElementById("installButton").addEventListener("click", async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        if (choice.outcome === "accepted") {
-            console.log("PWA Installed!");
-        }
-        document.getElementById("installButton").style.display = "none";
-        deferredPrompt = null;
-    }
-});
-
-// Hide install button if app is already installed
-window.addEventListener("appinstalled", () => {
-    console.log("PWA Installed");
-    document.getElementById("installButton").style.display = "none";
-});
 
 document.querySelectorAll(".bottom-nav button").forEach(button => {
     button.addEventListener("click", () => {
@@ -349,5 +323,32 @@ if ('serviceWorker' in navigator) {
             .then(() => console.log("Service Worker Registered"));
     });
 }
+
+//PWA Stuff
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault(); // Prevents automatic banner
+    deferredPrompt = event; // Store the event for later use
+
+    // Show your own install button (make sure it's in your HTML)
+    document.getElementById("installButton").style.display = "block";
+});
+
+// Handle install button click
+document.getElementById("installButton").addEventListener("click", () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt(); // Show install prompt
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === "accepted") {
+                console.log("User installed the app");
+            } else {
+                console.log("User dismissed the install prompt");
+            }
+            deferredPrompt = null; // Reset
+        });
+    }
+});
+
 
 
