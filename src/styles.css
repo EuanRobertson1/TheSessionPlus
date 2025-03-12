@@ -240,38 +240,6 @@ body {
     display: none;
 }
 
-#sessionsPage {
-    display: none;
-    background-color: #500000;
-
-    position: absolute;
-    top: 60px; /* Below the yellow header */
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 120px); /* Fit between header & navbar */
-    
-    max-width: 430px; /* Keep mobile-friendly */
-    margin: 0 auto;
-    overflow: hidden; /* Prevent scrolling */
-}
-
-
-
-.sessions-header {
-    color: white;
-    font-weight: bold;
-    top: 50px;
-    font-size: 25px;
-    padding: 12px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-
-
 .scrollable-events .event {
     background-color: #700000;
     padding: 10px;
