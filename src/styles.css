@@ -45,6 +45,7 @@ body {
 
 /* Back button styling */
 .back-button {
+    display: none;
     position: absolute;
     top: 20px; /* Ensure it is at the top */
     left: 10px; /* Align it to the left */
@@ -253,6 +254,8 @@ body {
     margin: 0 auto;
     overflow: hidden; /* Prevent scrolling */
 }
+
+
 
 .sessions-header {
     color: white;

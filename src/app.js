@@ -46,18 +46,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         const homeContent = document.querySelector(".upcoming-events");
         const sessionsContent = document.querySelector("#sessionsPage");
         const savedTunesContent = document.querySelector("#savedTunesPage");
+        const backButton = document.querySelector("#backToHome");
+        const backButton2 = document.querySelector("#backToHomeFromSaved");
 
         if (pageId === "sessionsPage") {
             searchBar.style.display = "none"; // Hide search bar
             homeContent.style.display = "none"; // Hide home content
             sessionsContent.style.display = "block"; // Show sessions page
             savedTunesContent.style.display = "none";
+            backButton.style.display = "block";
+            backButton2.style.display = "none";
 
         }else if (pageId === "savedTunesPage") {
             homeContent.style.display = "none";
             searchBar.style.display = "none";
             sessionsContent.style.display = "none";
             savedTunesContent.style.display = "block";
+            backButton2.style.display = "block";
+            backButton.style.display = "none";
             loadSavedTunes(); // Load saved tunes when page opens
         }
         else {
@@ -65,6 +71,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             homeContent.style.display = "block"; // Show home content
             sessionsContent.style.display = "none"; // Hide sessions page
             savedTunesContent.style.display = "none";
+            backButton.style.display = "none";
+            backButton2.style.display = "none";
         }
     }
     
