@@ -29,7 +29,6 @@
 
         <!--Upcoming Events -->
         <section class="upcoming-events">
-            
             <button id="resetSearch" class="back-button search-back">
                 <span class="iconify" data-icon="tabler:arrow-back-up"></span>
             </button>
@@ -49,7 +48,15 @@
                 <!-- The map will go here -->
             </div>
         </section>
-
+        
+        <!-- Saved Tunes Page (Hidden Initially) -->
+        <section id="savedTunesPage" class="upcoming-events" style="display: none;">
+            <button id="backToHomeFromSaved" class="back-button">
+                <span class="iconify" data-icon="tabler:arrow-back-up"></span>
+            </button>
+            <h2>Saved Tunes</h2>
+            <div id="saved-list" class="scrollable-events"></div> <!-- Same as event list -->
+        </section>
 
         <!-- Bottom NavBar -->
         <nav class="bottom-nav">
@@ -58,7 +65,7 @@
                 <span class="nav-label">Find Nearby Sessions</span>
             </button>
         
-            <button id="savedTunes">
+            <button data-page ="savedTunesPage">
                 <span class="iconify" data-icon="tabler:music" data-inline="false"></span>
                 <span class="nav-label">Saved Tunes</span>
             </button>

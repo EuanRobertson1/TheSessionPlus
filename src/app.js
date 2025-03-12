@@ -45,20 +45,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         const searchBar = document.querySelector(".search-bar");
         const homeContent = document.querySelector(".upcoming-events");
         const sessionsContent = document.querySelector("#sessionsPage");
-    
+        const savedTunesContent = document.querySelector("#savedTunesPage");
+
         if (pageId === "sessionsPage") {
             searchBar.style.display = "none"; // Hide search bar
             homeContent.style.display = "none"; // Hide home content
             sessionsContent.style.display = "block"; // Show sessions page
-        } else {
+            savedTunesContent.style.display = "none";
+
+        }else if (pageId === "savedTunesPage") {
+            homeContent.style.display = "none";
+            searchBar.style.display = "none";
+            sessionsContent.style.display = "none";
+            savedTunesContent.style.display = "block";
+            loadSavedTunes(); // Load saved tunes when page opens
+        }
+        else {
             searchBar.style.display = "flex"; // Show search bar on home page
             homeContent.style.display = "block"; // Show home content
             sessionsContent.style.display = "none"; // Hide sessions page
+            savedTunesContent.style.display = "none";
         }
     }
     
-    
-
     // Handle navbar clicks
     document.querySelectorAll(".bottom-nav button").forEach(button => {
         button.addEventListener("click", () => {
@@ -67,9 +76,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // Handle back button
+    // Handle back buttons
     document.getElementById("backToHome").addEventListener("click", () => {
         switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
+    });
+    document.getElementById("backToHomeFromSaved").addEventListener("click", () => {
+        switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
     });
 
     // Ensure the home page is visible initially
@@ -131,6 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function displaySearchResults(tunes) {
+
     const eventList = document.getElementById("event-list");
     const header = document.querySelector(".upcoming-events h2"); // Target the heading
 
@@ -155,6 +176,15 @@ function displaySearchResults(tunes) {
         `;
 
         eventList.appendChild(tuneItem);
+    });
+
+
+    // Attach event listeners to the "Save Tune" buttons
+    document.querySelectorAll(".save-tune").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const tuneId = event.target.getAttribute("data-id");
+            saveTune(tuneId); // Call saveTune when button is clicked
+        });
     });
 }
 
@@ -201,7 +231,7 @@ function saveTune(tuneId) {
 
 async function loadSavedTunes() {
     const savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
-    const savedTunesContainer = document.getElementById("saved-tunes-list");
+    const savedTunesContainer = document.getElementById("saved-list");
     savedTunesContainer.innerHTML = "";
 
     if (savedTunes.length === 0) {

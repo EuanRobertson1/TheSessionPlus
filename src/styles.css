@@ -46,13 +46,15 @@ body {
 /* Back button styling */
 .back-button {
     position: absolute;
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 20px; /* Ensure it is at the top */
+    left: 10px; /* Align it to the left */
     background: none;
     border: none;
     cursor: pointer;
     padding: 5px;
+    font-size: 24px;
+    color: white;
+    z-index: 10; /* Ensure it's above other elements */
 }
 
 .back-button .iconify {
@@ -160,6 +162,7 @@ body {
     padding-bottom: 15px; /* Prevents bottom content from being cut off */
 }
 
+
 .event-box {
     background-color: #800000;
     padding:12px;
@@ -264,13 +267,24 @@ body {
     position: relative;
 }
 
-/* Back button for Search Results */
-.search-back {
-    position: absolute;
-    top:50px;  /* Position within .upcoming-events */
-    left: 30px; /* Align to the left */
-    font-size: 34px;
+
+
+.scrollable-events .event {
+    background-color: #700000;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
     color: white;
-    z-index: 10; /* Ensure it stays above */
-    display: none; /* Hidden by default */
 }
+
+/* Ensures last tune isn't hidden by bottom navbar */
+.scrollable-events {
+    padding-bottom: 80px;
+}
+
+
+
+
+
+
+
