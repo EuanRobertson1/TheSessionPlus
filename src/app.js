@@ -143,7 +143,7 @@ function displaySearchResults(tunes) {
         return;
     }
 
-    tunes.slice(0, 10).forEach(tune => {
+    tunes.slice(0, 50).forEach(tune => {
         const tuneItem = document.createElement("div");
         tuneItem.classList.add("event-box");
 
@@ -157,8 +157,6 @@ function displaySearchResults(tunes) {
         eventList.appendChild(tuneItem);
     });
 }
-
-
 
 
 function displayEvents(events) {
@@ -189,5 +187,64 @@ function displayEvents(events) {
     });
 }
 
+function saveTune(tuneId) {
+    let savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
 
+    if (!savedTunes.includes(tuneId)) {
+        savedTunes.push(tuneId);
+        localStorage.setItem("savedTunes", JSON.stringify(savedTunes));
+        alert("Tune saved!");
+    } else {
+        alert("Tune is already saved.");
+    }
+}
+
+async function loadSavedTunes() {
+    const savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
+    const savedTunesContainer = document.getElementById("saved-tunes-list");
+    savedTunesContainer.innerHTML = "";
+
+    if (savedTunes.length === 0) {
+        savedTunesContainer.innerHTML = "<p>No saved tunes yet.</p>";
+        return;
+    }
+
+    // Fetch tune details for each saved tune
+    for (let tuneId of savedTunes) {
+        try {
+            const response = await fetch(`https://thesession.org/tunes/${tuneId}?format=json`);
+            const tune = await response.json();
+
+            const tuneElement = document.createElement("div");
+            tuneElement.classList.add("event");
+
+            tuneElement.innerHTML = `
+                <h3>${tune.name}</h3>
+                <p><strong>Type:</strong> ${tune.type}</p>
+                <a href="${tune.url}" target="_blank">View Tune</a>
+                <button class="remove-tune" data-id="${tune.id}">Remove</button>
+            `;
+
+            savedTunesContainer.appendChild(tuneElement);
+        } catch (error) {
+            console.error("Error fetching tune:", error);
+        }
+    }
+
+    // Add event listeners to remove buttons
+    document.querySelectorAll(".remove-tune").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const tuneId = event.target.getAttribute("data-id");
+            removeTune(tuneId);
+        });
+    });
+}
+
+function removeTune(tuneId) {
+    let savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
+    savedTunes = savedTunes.filter(id => id !== tuneId);
+
+    localStorage.setItem("savedTunes", JSON.stringify(savedTunes));
+    loadSavedTunes(); // Refresh the saved tunes list
+}
 
