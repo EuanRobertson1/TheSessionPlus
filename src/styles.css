@@ -285,6 +285,29 @@ body {
     padding-bottom: 80px;
 }
 
+/* General Button Styling */
+.tune-button {
+    display: inline-block;
+    background-color: #ffcc00; /* Yellow button to match header */
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    min-width: 100px;
+}
+
+
+/* Ensure buttons are spaced properly */
+.event-box .tune-button {
+    margin-right: 8px;
+    margin-top: 6px;
+}
 
 
 

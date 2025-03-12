@@ -179,8 +179,8 @@ function displaySearchResults(tunes) {
         tuneItem.innerHTML = `
             <h3>${tune.name}</h3>
             <p><strong>Type:</strong> ${tune.type || "None"}</p>
-            <a href="${tune.url}" target="_blank">View Tune</a>
-            <button class="save-tune" data-id="${tune.id}">Save Tune</button>
+            <button class="tune-button" onclick="window.open('${tune.url}', '_blank')">View Tune</button>
+            <button class="tune-button save-tune" data-id="${tune.id}">Save Tune</button>
         `;
 
         eventList.appendChild(tuneItem);
@@ -218,7 +218,7 @@ function displayEvents(events) {
             <h3>${event.name}</h3>
             <p><strong>Location:</strong> ${town}, ${country}</p>
             <p><strong>Date:</strong> ${new Date(event.dtstart).toLocaleString()}</p>
-            <a href="https://thesession.org/events/${event.id}" target="_blank">View Details</a>
+            <button class="tune-button" onclick="window.open('https://thesession.org/events/${event.id}', '_blank')">View Details</button>
         `;
 
         eventList.appendChild(eventItem);
@@ -259,8 +259,8 @@ async function loadSavedTunes() {
             tuneElement.innerHTML = `
                 <h3>${tune.name}</h3>
                 <p><strong>Type:</strong> ${tune.type}</p>
-                <a href="${tune.url}" target="_blank">View Tune</a>
-                <button class="remove-tune" data-id="${tune.id}">Remove</button>
+                <button class="tune-button" onclick="window.open('${tune.url}', '_blank')">View Tune</button>
+                <button class="tune-button remove-tune" data-id="${tune.id}">Remove</button>
             `;
 
             savedTunesContainer.appendChild(tuneElement);
