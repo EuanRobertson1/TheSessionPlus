@@ -2,12 +2,12 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('app-cache').then((cache) => {
             return cache.addAll([
-                './index.html',
-                './styles.css',
-                './app.js',
-                './manifest.json',
-                './TheSessionPlus/icons/icon-192x192.png',
-                './TheSessionPlus/icons/icon-512x512.png'
+                '/TheSessionPlus/index.html',
+                '/TheSessionPlus/styles.css',
+                '/TheSessionPlus/app.js',
+                '/TheSessionPlus/manifest.json',
+                '/TheSessionPlus/icons/icon-192x192.png',
+                '/TheSessionPlus/icons/icon-512x512.png'
             ]);
         })
     );
