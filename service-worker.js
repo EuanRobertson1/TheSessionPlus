@@ -1,7 +1,7 @@
 const CACHE_NAME = "session-plus-cache";
 const FILES_TO_CACHE = [
     "/",
-    "/home.html",
+    "/index.html",
     "/styles.css",
     "/app.js",
     "/manifest.json",
