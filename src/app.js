@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             savedTunesContent.style.display = "none";
             backButton.style.display = "block";
             backButton2.style.display = "none";
+            fetchNearbySessions();
 
         }else if (pageId === "savedTunesPage") {
             homeContent.style.display = "none";
@@ -285,4 +286,50 @@ function removeTune(tuneId) {
     localStorage.setItem("savedTunes", JSON.stringify(savedTunes));
     loadSavedTunes(); // Refresh the saved tunes list
 }
+
+async function fetchNearbySessions() {
+    if (!navigator.geolocation) {
+        console.error("Geolocation is not supported by this browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const apiUrl = `https://thesession.org/sessions/nearby?latlon=${latitude},${longitude}&radius=75&format=json`;
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error("Failed to fetch sessions");
+
+            const data = await response.json();
+            const sessionsList = document.getElementById("sessions-list"); // Get list container
+            sessionsList.innerHTML = ""; // Clear old results
+
+            if (!data.sessions || data.sessions.length === 0) {
+                sessionsList.innerHTML = "<p>No sessions found nearby.</p>";
+                return;
+            }
+
+            data.sessions.forEach(session => {
+                const sessionElement = document.createElement("div");
+                sessionElement.classList.add("event-box"); 
+
+                sessionElement.innerHTML = `
+                    <h3>${session.venue.name}</h3>
+                    <p><strong>Location:</strong> ${session.town.name}, ${session.country.name}</p>
+                    <button class="tune-button remove-tune" data-id="${session.url}">View Session</button>
+                `;
+
+                sessionsList.appendChild(sessionElement);
+            });
+
+        } catch (error) {
+            console.error("Error fetching nearby sessions:", error);
+        }
+    }, (error) => {
+        console.error("Error getting location:", error);
+    });
+}
+
 
