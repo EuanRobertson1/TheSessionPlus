@@ -15,42 +15,29 @@ async function fetchUpcomingEvents() {
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
     console.log("Switching to:", pageId);
-    const searchBar = document.querySelector(".search-bar");
-    const homeContent = document.querySelector(".upcoming-events");
-    const sessionsContent = document.querySelector("#sessionsPage");
-    const savedTunesContent = document.querySelector("#savedTunesPage");
-    const identifyTuneContent = document.querySelector("#identifyTunePage");
+    
+    const pages = {
+        homePage: document.getElementById("homePage"),
+        sessionsPage: document.getElementById("sessionsPage"),
+        savedTunesPage: document.getElementById("savedTunesPage"),
+        identifyTunePage: document.getElementById("identifyTunePage"),
+    };
 
-    if (pageId === "sessionsPage") {
-        searchBar.style.display = "none";
-        homeContent.style.display = "none";
-        savedTunesContent.style.display = "none";
-        identifyTuneContent.style.display = "none";
-        sessionsContent.style.display = "block";
-    } else if (pageId === "savedTunesPage") {
-        searchBar.style.display = "none";
-        homeContent.style.display = "none";
-        sessionsContent.style.display = "none";
-        identifyTuneContent.style.display = "none";
-        savedTunesContent.style.display = "block";
-    } else if (pageId === "identifyTunePage") {
-        searchBar.style.display = "none";
-        homeContent.style.display = "none";
-        sessionsContent.style.display = "none";
-        savedTunesContent.style.display = "none";
-        identifyTuneContent.style.display = "block";
+    Object.values(pages).forEach(page => page.style.display = "none");
+
+    if (pages[pageId]) {
+        pages[pageId].style.display = "block";
     } else {
-        searchBar.style.display = "flex";
-        homeContent.style.display = "block";
-        sessionsContent.style.display = "none";
-        savedTunesContent.style.display = "none";
-        identifyTuneContent.style.display = "none";
+        pages.homePage.style.display = "block"; // Default to home if error
     }
 }
 
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // Ensure the home page is visible initially
+    switchPage("homePage");
+
     // Fetch and display events
     const events = await fetchUpcomingEvents();
     displayEvents(events);
@@ -59,17 +46,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".bottom-nav button").forEach(button => {
         button.addEventListener("click", () => {
             const pageId = button.getAttribute("data-page");
-            console.log(`Switching to: ${pageId}`);
+            console.log("Button Clicked, Switching to:", pageId);
             if (pageId) switchPage(pageId);
         });
     });
-
-    //debug
-   document.querySelectorAll(".bottom-nav button").forEach(button => {
-        button.addEventListener("click", (event) => {
-            console.log("Button Clicked:", event.target);
-        });
-    });
+    
     // Handle back buttons
     document.getElementById("backToHome").addEventListener("click", () => {
         switchPage("homePage");
@@ -94,8 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     
 
-    // Ensure the home page is visible initially
-    switchPage("homePage");
+  
 
     // Select the search input and button
     const searchInput = document.getElementById("searchInput");
