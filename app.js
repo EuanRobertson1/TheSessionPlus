@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
         if (pageId === "sessionsPage") {
             searchBar.style.display = "none";
+            homeContent.style.display = "none";
             sessionsContent.style.display = "block";
             backButton.style.display = "block";
             backButton2.style.display = "none";
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             fetchNearbySessions();
         } else if (pageId === "savedTunesPage") {
             searchBar.style.display = "none";
+            homeContent.style.display = "none";
             savedTunesContent.style.display = "block";
             backButton.style.display = "none";
             backButton2.style.display = "block";
@@ -58,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             loadSavedTunes();
         } else if (pageId === "identifyTunePage") {
             searchBar.style.display = "none";
+            homeContent.style.display = "none";
             identifyTuneContent.style.display = "block";
             backButton.style.display = "none";
             backButton2.style.display = "none";
