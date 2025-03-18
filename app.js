@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Function to switch pages without affecting existing styles
     function switchPage(pageId) {
         const searchBar = document.querySelector(".search-bar");
-        const homeContent = document.querySelector(".upcoming-events");
+        const homeContent = document.querySelector("#homePage");
         const sessionsContent = document.querySelector("#sessionsPage");
         const savedTunesContent = document.querySelector("#savedTunesPage");
         const backButton = document.querySelector("#backToHome");
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             identifyTuneContent.style.display = "none";
             loadSavedTunes(); // Load saved tunes when page opens
         }
-        else if (pageId === "identifyTunesPage") {
+        else if (pageId === "identifyTunePage") {
             homeContent.style.display = "none";
             searchBar.style.display = "none";
             sessionsContent.style.display = "none";
