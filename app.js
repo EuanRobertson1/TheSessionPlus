@@ -28,54 +28,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Function to switch pages without affecting existing styles
     function switchPage(pageId) {
         const searchBar = document.querySelector(".search-bar");
-        const homeContent = document.querySelector("#homePage");
+        const homeContent = document.querySelector("#homePage"); // FIXED
         const sessionsContent = document.querySelector("#sessionsPage");
         const savedTunesContent = document.querySelector("#savedTunesPage");
+        const identifyTuneContent = document.querySelector("#identifyTunePage"); // FIXED
         const backButton = document.querySelector("#backToHome");
         const backButton2 = document.querySelector("#backToHomeFromSaved");
         const backButton3 = document.querySelector("#backToHomeFromIdentify");
-        const identifyTuneContent = document.querySelector("#identifyTunePage");
-
+    
+        // Hide all pages by default
+        homeContent.style.display = "none";
+        sessionsContent.style.display = "none";
+        savedTunesContent.style.display = "none";
+        identifyTuneContent.style.display = "none";
+    
         if (pageId === "sessionsPage") {
-            searchBar.style.display = "none"; // Hide search bar
-            homeContent.style.display = "none"; // Hide home content
-            sessionsContent.style.display = "block"; // Show sessions page
-            savedTunesContent.style.display = "none";
+            searchBar.style.display = "none";
+            sessionsContent.style.display = "block";
             backButton.style.display = "block";
-            identifyTuneContent.style.display = "none";
             backButton2.style.display = "none";
+            backButton3.style.display = "none";
             fetchNearbySessions();
-
-        }else if (pageId === "savedTunesPage") {
-            homeContent.style.display = "none";
+        } else if (pageId === "savedTunesPage") {
             searchBar.style.display = "none";
-            sessionsContent.style.display = "none";
             savedTunesContent.style.display = "block";
-            backButton2.style.display = "block";
             backButton.style.display = "none";
-            identifyTuneContent.style.display = "none";
-            loadSavedTunes(); // Load saved tunes when page opens
-        }
-        else if (pageId === "identifyTunePage") {
-            homeContent.style.display = "none";
+            backButton2.style.display = "block";
+            backButton3.style.display = "none";
+            loadSavedTunes();
+        } else if (pageId === "identifyTunePage") {
             searchBar.style.display = "none";
-            sessionsContent.style.display = "none";
-            savedTunesContent.style.display = "none";
             identifyTuneContent.style.display = "block";
+            backButton.style.display = "none";
             backButton2.style.display = "none";
             backButton3.style.display = "block";
-            backButton.style.display = "none";
-        }
-        else {
-            searchBar.style.display = "flex"; // Show search bar on home page
-            homeContent.style.display = "block"; // Show home content
-            sessionsContent.style.display = "none"; // Hide sessions page
+        } else {
+            // Default to home page
+            searchBar.style.display = "flex";
+            homeContent.style.display = "block"; // FIXED
+            sessionsContent.style.display = "none";
             savedTunesContent.style.display = "none";
-            backButton.style.display = "none";
             identifyTuneContent.style.display = "none";
+            backButton.style.display = "none";
             backButton2.style.display = "none";
+            backButton3.style.display = "none";
         }
     }
+    
     
     // Handle navbar clicks
     document.querySelectorAll(".bottom-nav button").forEach(button => {
