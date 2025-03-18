@@ -31,52 +31,43 @@ document.addEventListener("DOMContentLoaded", async () => {
         const homeContent = document.querySelector("#homePage"); // FIXED
         const sessionsContent = document.querySelector("#sessionsPage");
         const savedTunesContent = document.querySelector("#savedTunesPage");
-        const identifyTuneContent = document.querySelector("#identifyTunePage"); // FIXED
+        const identifyTuneContent = document.querySelector("#identifyTunePage");
         const backButton = document.querySelector("#backToHome");
         const backButton2 = document.querySelector("#backToHomeFromSaved");
         const backButton3 = document.querySelector("#backToHomeFromIdentify");
     
-        // Hide all pages by default
+        // 🔥 Hide ALL pages first to prevent overlapping
         homeContent.style.display = "none";
         sessionsContent.style.display = "none";
         savedTunesContent.style.display = "none";
         identifyTuneContent.style.display = "none";
     
+        // 🔥 Also, make sure all back buttons are hidden initially
+        backButton.style.display = "none";
+        backButton2.style.display = "none";
+        backButton3.style.display = "none";
+    
         if (pageId === "sessionsPage") {
             searchBar.style.display = "none";
-            homeContent.style.display = "none";
-            sessionsContent.style.display = "block";
+            sessionsContent.style.display = "block"; // Show Sessions
             backButton.style.display = "block";
-            backButton2.style.display = "none";
-            backButton3.style.display = "none";
             fetchNearbySessions();
         } else if (pageId === "savedTunesPage") {
             searchBar.style.display = "none";
-            homeContent.style.display = "none";
-            savedTunesContent.style.display = "block";
-            backButton.style.display = "none";
+            savedTunesContent.style.display = "block"; // Show Saved Tunes
             backButton2.style.display = "block";
-            backButton3.style.display = "none";
             loadSavedTunes();
         } else if (pageId === "identifyTunePage") {
             searchBar.style.display = "none";
-            homeContent.style.display = "none";
-            identifyTuneContent.style.display = "block";
-            backButton.style.display = "none";
-            backButton2.style.display = "none";
+            identifyTuneContent.style.display = "block"; // Show Identify Tune Page
             backButton3.style.display = "block";
-        } else if (pageId === "homePage") {
-           
+        } else {
+            // 🔥 Default: Show Home Page
             searchBar.style.display = "flex";
-            homeContent.style.display = "block"; // FIXED
-            sessionsContent.style.display = "none";
-            savedTunesContent.style.display = "none";
-            identifyTuneContent.style.display = "none";
-            backButton.style.display = "none";
-            backButton2.style.display = "none";
-            backButton3.style.display = "none";
+            homeContent.style.display = "block";
         }
     }
+    
     
     
     // Handle navbar clicks
