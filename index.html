@@ -18,6 +18,8 @@
             <h1>The Session+</h1>
         </header>
 
+        
+        
         <!--Search Bar for searching tunes -->
         <div class="search-bar">
             <input type="text" placeholder="Search for a Tune" id="searchInput">
@@ -26,10 +28,20 @@
             </button>
         </div>
         
+        <!-- Saved Tunes Page (Hidden Initially) -->
+        <section id="savedTunesPage" class="upcoming-events" style="display: none;">
+            
+            <button id="backToHomeFromSaved" class="back-button">
+                <span class="iconify" data-icon="tabler:arrow-back-up"></span>
+            </button>
+             
+            <h2>Saved Tunes</h2>
+            <div id="saved-list" class="scrollable-events"></div> 
+        </section>
         
 
         <!--Upcoming Events -->
-        <section class="upcoming-events">
+        <section id="homePage" class="upcoming-events">
             <button id="resetSearch" class="back-button search-back">
                 <span class="iconify" data-icon="tabler:arrow-back-up"></span>
             </button>
@@ -46,16 +58,18 @@
             
             <div id="sessions-list" class = "scrollable-events"></div>
         </section>
+
+       
         
-        <!-- Saved Tunes Page (Hidden Initially) -->
-        <section id="savedTunesPage" class="upcoming-events" style="display: none;">
+        <!--Identify Tune Page (Hidden Initially)-->
+        <section id="identifyTunePage" class="upcoming-events">
             
-            <button id="backToHomeFromSaved" class="back-button">
+            <button id="backToHomeFromIdentify" class="back-button">
                 <span class="iconify" data-icon="tabler:arrow-back-up"></span>
             </button>
              
-            <h2>Saved Tunes</h2>
-            <div id="saved-list" class="scrollable-events"></div> 
+            <h2>Identify a Tune</h2>
+            <div id="identify-container" class="scrollable-events"></div> 
         </section>
 
         <!-- Bottom NavBar -->
@@ -70,7 +84,7 @@
                 <span class="nav-label">Saved Tunes</span>
             </button>
         
-            <button id="identifyTune">
+            <button data-page="identifyTunePage">
                 <span class="iconify" data-icon="tabler:microphone" data-inline="false"></span>
                 <span class="nav-label">Identify Tune</span>
             </button>
