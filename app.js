@@ -22,25 +22,37 @@ async function fetchUpcomingEvents() {
 
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
-    console.log("Switch Page function called with:", pageId);
+    console.log("Switching to:", pageId);
+    const searchBar = document.querySelector(".search-bar");
+    const homeContent = document.querySelector(".upcoming-events");
+    const sessionsContent = document.querySelector("#sessionsPage");
+    const savedTunesContent = document.querySelector("#savedTunesPage");
+    const identifyTuneContent = document.querySelector("#identifyTunePage");
 
-    const pages = {
-        homePage: document.querySelector("#homePage"),
-        sessionsPage: document.querySelector("#sessionsPage"),
-        savedTunesPage: document.querySelector("#savedTunesPage"),
-        identifyTunePage: document.querySelector("#identifyTunePage"),
-    };
-
-    // Hide all sections
-    Object.values(pages).forEach(page => {
-        if (page) page.style.display = "none";
-    });
-
-    // Show the requested section
-    if (pages[pageId]) {
-        pages[pageId].style.display = "block";
+    if (pageId === "sessionsPage") {
+        searchBar.style.display = "none";
+        homeContent.style.display = "none";
+        savedTunesContent.style.display = "none";
+        identifyTuneContent.style.display = "none";
+        sessionsContent.style.display = "block";
+    } else if (pageId === "savedTunesPage") {
+        searchBar.style.display = "none";
+        homeContent.style.display = "none";
+        sessionsContent.style.display = "none";
+        identifyTuneContent.style.display = "none";
+        savedTunesContent.style.display = "block";
+    } else if (pageId === "identifyTunePage") {
+        searchBar.style.display = "none";
+        homeContent.style.display = "none";
+        sessionsContent.style.display = "none";
+        savedTunesContent.style.display = "none";
+        identifyTuneContent.style.display = "block";
     } else {
-        console.error("Invalid pageId:", pageId);
+        searchBar.style.display = "flex";
+        homeContent.style.display = "block";
+        sessionsContent.style.display = "none";
+        savedTunesContent.style.display = "none";
+        identifyTuneContent.style.display = "none";
     }
 }
 
@@ -61,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     //debug
-    document.querySelectorAll(".bottom-nav button").forEach(button => {
+   document.querySelectorAll(".bottom-nav button").forEach(button => {
         button.addEventListener("click", (event) => {
             console.log("Button Clicked:", event.target);
         });
