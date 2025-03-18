@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const events = await fetchUpcomingEvents();
     displayEvents(events);
 
+    console.log("Switch Page function called with:", pageId);
+
     // Function to switch pages without affecting existing styles
     function switchPage(pageId) {
         const searchBar = document.querySelector(".search-bar");
@@ -48,21 +50,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         backButton3.style.display = "none";
     
         if (pageId === "sessionsPage") {
+            console.log("sessions Page should be visible now.");
             searchBar.style.display = "none";
             sessionsContent.style.display = "block"; // Show Sessions
             backButton.style.display = "block";
             fetchNearbySessions();
         } else if (pageId === "savedTunesPage") {
+            console.log("saved tunes should be visible now.");
             searchBar.style.display = "none";
             savedTunesContent.style.display = "block"; // Show Saved Tunes
             backButton2.style.display = "block";
             loadSavedTunes();
         } else if (pageId === "identifyTunePage") {
+            console.log("identify tune should be visible");
             searchBar.style.display = "none";
             identifyTuneContent.style.display = "block"; // Show Identify Tune Page
             backButton3.style.display = "block";
         } else {
             // 🔥 Default: Show Home Page
+            console.log("home Page should be visible now.");
             searchBar.style.display = "flex";
             homeContent.style.display = "block";
         }
