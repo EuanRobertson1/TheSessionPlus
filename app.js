@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const savedTunesContent = document.querySelector("#savedTunesPage");
         const backButton = document.querySelector("#backToHome");
         const backButton2 = document.querySelector("#backToHomeFromSaved");
+        const backButton3 = document.querySelector("#backToHomeFromIdentify");
+        const identifyTuneContent = document.querySelector("#identifyTunePage");
 
         if (pageId === "sessionsPage") {
             searchBar.style.display = "none"; // Hide search bar
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             sessionsContent.style.display = "block"; // Show sessions page
             savedTunesContent.style.display = "none";
             backButton.style.display = "block";
+            identifyTuneContent.style.display = "none";
             backButton2.style.display = "none";
             fetchNearbySessions();
 
@@ -50,7 +53,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             savedTunesContent.style.display = "block";
             backButton2.style.display = "block";
             backButton.style.display = "none";
+            identifyTuneContent.style.display = "none";
             loadSavedTunes(); // Load saved tunes when page opens
+        }
+        else if (pageId === "identifyTunesPage") {
+            homeContent.style.display = "none";
+            searchBar.style.display = "none";
+            sessionsContent.style.display = "none";
+            savedTunesContent.style.display = "none";
+            identifyTuneContent.style.display = "block";
+            backButton2.style.display = "none";
+            backButton3.style.display = "block";
+            backButton.style.display = "none";
         }
         else {
             searchBar.style.display = "flex"; // Show search bar on home page
@@ -58,6 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             sessionsContent.style.display = "none"; // Hide sessions page
             savedTunesContent.style.display = "none";
             backButton.style.display = "none";
+            identifyTuneContent.style.display = "none";
             backButton2.style.display = "none";
         }
     }
@@ -85,6 +100,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             button.classList.remove("active");
         });
     });
+    document.getElementById("backToHomeFromIdentify").addEventListener("click", () => {
+        switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
+    });
+    
 
     // Ensure the home page is visible initially
     switchPage("homePage");
