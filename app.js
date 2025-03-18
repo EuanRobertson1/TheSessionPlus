@@ -1,12 +1,4 @@
 
-
-document.querySelectorAll(".bottom-nav button").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll(".bottom-nav button").forEach(b => b.classList.remove("active"));
-        button.classList.add("active");
-    });
-});
-
 async function fetchUpcomingEvents() {
     try {
         const response = await fetch("https://thesession.org/events/new?format=json&perpage=50");
