@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             backButton.style.display = "none";
             backButton2.style.display = "none";
             backButton3.style.display = "block";
-        } else {
-            // Default to home page
+        } else if (pageId === "homePage") {
+           
             searchBar.style.display = "flex";
             homeContent.style.display = "block"; // FIXED
             sessionsContent.style.display = "none";
