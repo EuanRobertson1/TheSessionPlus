@@ -60,6 +60,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    //debug
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+        button.addEventListener("click", (event) => {
+            console.log("Button Clicked:", event.target);
+        });
+    });
     // Handle back buttons
     document.getElementById("backToHome").addEventListener("click", () => {
         switchPage("homePage");
