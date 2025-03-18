@@ -23,50 +23,28 @@ async function fetchUpcomingEvents() {
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
     console.log("Switch Page function called with:", pageId);
-    const searchBar = document.querySelector(".search-bar");
-    const homeContent = document.querySelector("#homePage"); // FIXED
-    const sessionsContent = document.querySelector("#sessionsPage");
-    const savedTunesContent = document.querySelector("#savedTunesPage");
-    const identifyTuneContent = document.querySelector("#identifyTunePage");
-    const backButton = document.querySelector("#backToHome");
-    const backButton2 = document.querySelector("#backToHomeFromSaved");
-    const backButton3 = document.querySelector("#backToHomeFromIdentify");
 
-    // 🔥 Hide ALL pages first to prevent overlapping
-    homeContent.style.display = "none";
-    sessionsContent.style.display = "none";
-    savedTunesContent.style.display = "none";
-    identifyTuneContent.style.display = "none";
+    const pages = {
+        homePage: document.querySelector("#homePage"),
+        sessionsPage: document.querySelector("#sessionsPage"),
+        savedTunesPage: document.querySelector("#savedTunesPage"),
+        identifyTunePage: document.querySelector("#identifyTunePage"),
+    };
 
-    // 🔥 Also, make sure all back buttons are hidden initially
-    backButton.style.display = "none";
-    backButton2.style.display = "none";
-    backButton3.style.display = "none";
+    // Hide all sections
+    Object.values(pages).forEach(page => {
+        if (page) page.style.display = "none";
+    });
 
-    if (pageId === "sessionsPage") {
-        console.log("sessions Page should be visible now.");
-        searchBar.style.display = "none";
-        sessionsContent.style.display = "block"; // Show Sessions
-        backButton.style.display = "block";
-        fetchNearbySessions();
-    } else if (pageId === "savedTunesPage") {
-        console.log("saved tunes should be visible now.");
-        searchBar.style.display = "none";
-        savedTunesContent.style.display = "block"; // Show Saved Tunes
-        backButton2.style.display = "block";
-        loadSavedTunes();
-    } else if (pageId === "identifyTunePage") {
-        console.log("identify tune should be visible");
-        searchBar.style.display = "none";
-        identifyTuneContent.style.display = "block"; // Show Identify Tune Page
-        backButton3.style.display = "block";
+    // Show the requested section
+    if (pages[pageId]) {
+        pages[pageId].style.display = "block";
     } else {
-        // 🔥 Default: Show Home Page
-        console.log("home Page should be visible now.");
-        searchBar.style.display = "flex";
-        homeContent.style.display = "block";
+        console.error("Invalid pageId:", pageId);
     }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
@@ -77,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".bottom-nav button").forEach(button => {
         button.addEventListener("click", () => {
             const pageId = button.getAttribute("data-page");
+            console.log(`Switching to: ${pageId}`);
             if (pageId) switchPage(pageId);
         });
     });
