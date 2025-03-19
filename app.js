@@ -274,6 +274,117 @@ async function requestMicrophone() {
     }
 }
 
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById("recordButton").addEventListener("click", async () => {
+    const stream = await requestMicrophone();
+    if (!stream) return; // Stop if user denies permission
+
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.start();
+    audioChunks = [];
+
+    mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data);
+    });
+
+    mediaRecorder.addEventListener("stop", async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+
+        // Send audio for processing (matching)
+        await processAudio(audioBlob);
+    });
+
+    // Hide Start, Show Stop
+    document.getElementById("recordButton").style.display = "none";
+    document.getElementById("stopButton").style.display = "block";
+});
+
+document.getElementById("stopButton").addEventListener("click", () => {
+    mediaRecorder.stop();
+
+    // Show Start, Hide Stop
+    document.getElementById("recordButton").style.display = "block";
+    document.getElementById("stopButton").style.display = "none";
+});
+
+async function processAudio(audioBlob) {
+    console.log("Processing audio...");
+
+    // Extract pitch pattern
+    const recordedPattern = await extractPitchData(audioBlob);
+    const bestMatch = findClosestMatch(recordedPattern);
+
+    if (bestMatch) {
+        displayMatchedTune(bestMatch);
+    } else {
+        console.log("No match found.");
+    }
+}
+
+async function extractPitchData(audioBlob) {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const arrayBuffer = await audioBlob.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+    const analyser = audioContext.createAnalyser();
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+
+    const dataArray = new Float32Array(analyser.fftSize);
+    analyser.getFloatTimeDomainData(dataArray);
+
+    return detectPitchChanges(dataArray);
+}
+
+function detectPitchChanges(audioData) {
+    const pitchChanges = [];
+    let lastValue = null;
+
+    for (let i = 0; i < audioData.length; i += 1024) {
+        let avg = 0;
+        for (let j = 0; j < 1024; j++) {
+            avg += Math.abs(audioData[i + j] || 0);
+        }
+        avg /= 1024;
+
+        if (lastValue !== null) {
+            if (avg > lastValue * 1.2) {
+                pitchChanges.push(1); // Up
+            } else if (avg < lastValue * 0.8) {
+                pitchChanges.push(-1); // Down
+            } else {
+                pitchChanges.push(0); // No change
+            }
+        }
+        lastValue = avg;
+    }
+
+    return pitchChanges;
+}
+
+const storedTunes = [
+    //put tune data here!!
+];
+
+function findClosestMatch(recordedPattern) {
+    let bestMatch = null;
+    let bestScore = Infinity;
+
+    storedTunes.forEach(tune => {
+        const score = comparePatterns(recordedPattern, tune.pattern);
+        if (score < bestScore) {
+            bestMatch = tune;
+            bestScore = score;
+        }
+    });
+
+    return bestMatch;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
     const events = await fetchUpcomingEvents();
