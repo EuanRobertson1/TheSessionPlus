@@ -262,6 +262,18 @@ async function fetchNearbySessions() {
     });
 }
 
+async function requestMicrophone() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log("Microphone access granted.");
+        return stream;
+    } catch (error) {
+        console.error("Microphone access denied:", error);
+        alert("Please enable microphone access to record audio.");
+        return null;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
     const events = await fetchUpcomingEvents();
