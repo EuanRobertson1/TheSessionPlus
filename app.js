@@ -49,6 +49,10 @@ function switchPage(pageId) {
     }
 }
 
+
+// Expose function globally
+window.switchPage = switchPage;
+
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
     const events = await fetchUpcomingEvents();
