@@ -18,11 +18,13 @@ async function fetchUpcomingEvents() {
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
     const searchBar = document.querySelector(".search-bar");
-    const homeContent = document.querySelector(".upcoming-events");
+    const homeContent = document.querySelector("#home");
     const sessionsContent = document.querySelector("#sessionsPage");
     const savedTunesContent = document.querySelector("#savedTunesPage");
+    const identifyContent = document.querySelector('#identifyTunePage')
     const backButton = document.querySelector("#backToHome");
     const backButton2 = document.querySelector("#backToHomeFromSaved");
+    const backButton3 = document.querySelector("#backToHomeFromIdentify");
 
     if (pageId === "sessionsPage") {
         searchBar.style.display = "none"; // Hide search bar
@@ -31,6 +33,8 @@ function switchPage(pageId) {
         savedTunesContent.style.display = "none";
         backButton.style.display = "block";
         backButton2.style.display = "none";
+        backButton3.style.display = "none";
+        identifyContent.style.display = "none";
         fetchNearbySessions();
 
     }else if (pageId === "savedTunesPage") {
@@ -40,7 +44,19 @@ function switchPage(pageId) {
         savedTunesContent.style.display = "block";
         backButton2.style.display = "block";
         backButton.style.display = "none";
+        backButton3.style.display = "none";
+        identifyContent.style.display = "none";
         loadSavedTunes(); // Load saved tunes when page opens
+    }
+    else if (pageId === 'identifyTunePage') {
+        homeContent.style.display = "none";
+        searchBar.style.display = "none";
+        sessionsContent.style.display = "none";
+        savedTunesContent.style.display = "none";
+        backButton2.style.display = "none";
+        backButton.style.display = "none";
+        backButton3.style.display = "block";
+        identifyContent.style.display = "block";
     }
     else {
         searchBar.style.display = "flex"; // Show search bar on home page
@@ -49,6 +65,8 @@ function switchPage(pageId) {
         savedTunesContent.style.display = "none";
         backButton.style.display = "none";
         backButton2.style.display = "none";
+        backButton3.style.display = "none";
+        identifyContent.style.display = "none";
     }
 }
 
@@ -266,6 +284,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
     document.getElementById("backToHomeFromSaved").addEventListener("click", () => {
+        switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
+    });
+    document.getElementById("backToHomeFromIdentify").addEventListener("click", () => {
         switchPage("homePage");
         //make sure bottom nav buttons aren't highlighted
         document.querySelectorAll(".bottom-nav button").forEach(button => {

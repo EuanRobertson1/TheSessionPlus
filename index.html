@@ -1,4 +1,4 @@
-<!--Change 19/03 13:42-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,7 +30,7 @@
         
 
         <!--Upcoming Events -->
-        <section class="upcoming-events">
+        <section id = "home" class="upcoming-events">
             <button id="resetSearch" class="back-button search-back">
                 <span class="iconify" data-icon="tabler:arrow-back-up"></span>
             </button>
@@ -59,6 +59,17 @@
             <div id="saved-list" class="scrollable-events"></div> 
         </section>
 
+        <!-- Identify tune page (Hidden Initially) -->
+        <section id="identifyTunePage" class="upcoming-events" style="display: none;">
+            
+            <button id="backToHomeFromIdentify" class="back-button">
+                <span class="iconify" data-icon="tabler:arrow-back-up"></span>
+            </button>
+             
+            <h2>Identify a tune</h2>
+            <div id="identifyTuneList" class="scrollable-events"></div> 
+        </section>
+
         <!-- Bottom NavBar -->
         <nav class="bottom-nav">
             <button data-page="sessionsPage">
@@ -71,7 +82,7 @@
                 <span class="nav-label">Saved Tunes</span>
             </button>
         
-            <button id="identifyTune">
+            <button data-page="identifyTunePage">
                 <span class="iconify" data-icon="tabler:microphone" data-inline="false"></span>
                 <span class="nav-label">Identify Tune</span>
             </button>
