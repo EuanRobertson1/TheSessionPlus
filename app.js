@@ -14,75 +14,6 @@ async function fetchUpcomingEvents() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    // Fetch and display events
-    const events = await fetchUpcomingEvents();
-    displayEvents(events);
-    
-    // Handle navbar clicks
-    document.querySelectorAll(".bottom-nav button").forEach(button => {
-        button.addEventListener("click", () => {
-            const pageId = button.getAttribute("data-page");
-            if (pageId) switchPage(pageId);
-        });
-    });
-
-    // Handle back buttons
-    document.getElementById("backToHome").addEventListener("click", () => {
-        switchPage("homePage");
-        //make sure bottom nav buttons aren't highlighted
-        document.querySelectorAll(".bottom-nav button").forEach(button => {
-            button.classList.remove("active");
-        });
-    });
-    document.getElementById("backToHomeFromSaved").addEventListener("click", () => {
-        switchPage("homePage");
-        //make sure bottom nav buttons aren't highlighted
-        document.querySelectorAll(".bottom-nav button").forEach(button => {
-            button.classList.remove("active");
-        });
-    });
-
-    // Ensure the home page is visible initially
-    switchPage("homePage");
-
-    // Select the search input and button
-    const searchInput = document.getElementById("searchInput");
-    const searchButton = document.getElementById("searchButton");
-
-    
-    
-    document.getElementById("resetSearch").addEventListener("click", async () => {
-        const events = await fetchUpcomingEvents();
-        displayEvents(events);
-    
-        document.querySelector(".upcoming-events h2").textContent = "Upcoming Events"; // Reset heading
-        document.getElementById("resetSearch").style.display = "none"; // Hide back button
-        document.getElementById("searchInput").value = ""; //clear search
-    });
-    
-
-    // Handle search button click
-    searchButton.addEventListener("click", () => {
-        const query = searchInput.value.trim();
-        if (query) {
-            searchTunes(query); // Call API with search term
-        }
-    });
-
-    // Handle "Enter" key in search bar
-    searchInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            const query = searchInput.value.trim();
-            if (query) {
-                searchTunes(query);
-            }
-        }
-    });
-
-
-
-});
 
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
@@ -312,6 +243,77 @@ async function fetchNearbySessions() {
         console.error("Error getting location:", error);
     });
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // Fetch and display events
+    const events = await fetchUpcomingEvents();
+    displayEvents(events);
+
+    // Handle navbar clicks
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+        button.addEventListener("click", () => {
+            const pageId = button.getAttribute("data-page");
+            if (pageId) switchPage(pageId);
+        });
+    });
+
+    // Handle back buttons
+    document.getElementById("backToHome").addEventListener("click", () => {
+        switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
+    });
+    document.getElementById("backToHomeFromSaved").addEventListener("click", () => {
+        switchPage("homePage");
+        //make sure bottom nav buttons aren't highlighted
+        document.querySelectorAll(".bottom-nav button").forEach(button => {
+            button.classList.remove("active");
+        });
+    });
+
+    // Ensure the home page is visible initially
+    switchPage("homePage");
+
+    // Select the search input and button
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+
+    
+    
+    document.getElementById("resetSearch").addEventListener("click", async () => {
+        const events = await fetchUpcomingEvents();
+        displayEvents(events);
+    
+        document.querySelector(".upcoming-events h2").textContent = "Upcoming Events"; // Reset heading
+        document.getElementById("resetSearch").style.display = "none"; // Hide back button
+        document.getElementById("searchInput").value = ""; //clear search
+    });
+    
+
+    // Handle search button click
+    searchButton.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchTunes(query); // Call API with search term
+        }
+    });
+
+    // Handle "Enter" key in search bar
+    searchInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchTunes(query);
+            }
+        }
+    });
+
+
+
+});
+
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
