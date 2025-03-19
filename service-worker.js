@@ -2,12 +2,12 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('app-cache').then((cache) => {
             return cache.addAll([
-                'index.html',
-                'styles.css',
-                'app.js',
-                'manifest.json',
+                // 'index.html',
+                // 'styles.css',
+                // 'app.js',
+                // 'manifest.json',
                 new Request('icons/icon-192x192.png', { cache: 'reload' }),
-                new Request('=icons/icon-512x512.png', { cache: 'reload' })
+                new Request('icons/icon-512x512.png', { cache: 'reload' })
             ]);
         })
     );
