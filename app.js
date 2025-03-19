@@ -1,4 +1,6 @@
 
+console.log("Script loaded");  // Debugging statement
+
 async function fetchUpcomingEvents() {
     try {
         const response = await fetch("https://thesession.org/events/new?format=json&perpage=50");
