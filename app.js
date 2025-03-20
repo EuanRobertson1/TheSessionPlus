@@ -21,10 +21,10 @@ function switchPage(pageId) {
     const homeContent = document.querySelector("#home");
     const sessionsContent = document.querySelector("#sessionsPage");
     const savedTunesContent = document.querySelector("#savedTunesPage");
-    const identifyContent = document.querySelector('#identifyTunePage')
+    const recordingContent = document.querySelector('#myRecordingsPage')
     const backButton = document.querySelector("#backToHome");
     const backButton2 = document.querySelector("#backToHomeFromSaved");
-    const backButton3 = document.querySelector("#backToHomeFromIdentify");
+    const backButton3 = document.querySelector("#backToHomeFromRecording");
 
     if (pageId === "sessionsPage") {
         searchBar.style.display = "none"; // Hide search bar
@@ -34,7 +34,7 @@ function switchPage(pageId) {
         backButton.style.display = "block";
         backButton2.style.display = "none";
         backButton3.style.display = "none";
-        identifyContent.style.display = "none";
+        recordingContent.style.display = "none";
         fetchNearbySessions();
 
     }else if (pageId === "savedTunesPage") {
@@ -45,10 +45,10 @@ function switchPage(pageId) {
         backButton2.style.display = "block";
         backButton.style.display = "none";
         backButton3.style.display = "none";
-        identifyContent.style.display = "none";
+        recordingContent.style.display = "none";
         loadSavedTunes(); // Load saved tunes when page opens
     }
-    else if (pageId === 'identifyTunePage') {
+    else if (pageId === 'myRecordingsPage') {
         homeContent.style.display = "none";
         searchBar.style.display = "none";
         sessionsContent.style.display = "none";
@@ -56,7 +56,7 @@ function switchPage(pageId) {
         backButton2.style.display = "none";
         backButton.style.display = "none";
         backButton3.style.display = "block";
-        identifyContent.style.display = "block";
+        recordingContent.style.display = "block";
     }
     else {
         searchBar.style.display = "flex"; // Show search bar on home page
@@ -66,7 +66,7 @@ function switchPage(pageId) {
         backButton.style.display = "none";
         backButton2.style.display = "none";
         backButton3.style.display = "none";
-        identifyContent.style.display = "none";
+        recordingContent.style.display = "none";
     }
 }
 
@@ -262,128 +262,6 @@ async function fetchNearbySessions() {
     });
 }
 
-async function requestMicrophone() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        console.log("Microphone access granted.");
-        return stream;
-    } catch (error) {
-        console.error("Microphone access denied:", error);
-        alert("Please enable microphone access to record audio.");
-        return null;
-    }
-}
-
-let mediaRecorder;
-let audioChunks = [];
-
-document.getElementById("recordButton").addEventListener("click", async () => {
-    const stream = await requestMicrophone();
-    if (!stream) return; // Stop if user denies permission
-
-    mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.start();
-    audioChunks = [];
-
-    mediaRecorder.addEventListener("dataavailable", event => {
-        audioChunks.push(event.data);
-    });
-
-    mediaRecorder.addEventListener("stop", async () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-
-        // Send audio for processing (matching)
-        await processAudio(audioBlob);
-    });
-
-    // Hide Start, Show Stop
-    document.getElementById("recordButton").style.display = "none";
-    document.getElementById("stopButton").style.display = "block";
-});
-
-document.getElementById("stopButton").addEventListener("click", () => {
-    mediaRecorder.stop();
-
-    // Show Start, Hide Stop
-    document.getElementById("recordButton").style.display = "block";
-    document.getElementById("stopButton").style.display = "none";
-});
-
-async function processAudio(audioBlob) {
-    console.log("Processing audio...");
-
-    // Extract pitch pattern
-    const recordedPattern = await extractPitchData(audioBlob);
-    const bestMatch = findClosestMatch(recordedPattern);
-
-    if (bestMatch) {
-        displayMatchedTune(bestMatch);
-    } else {
-        console.log("No match found.");
-    }
-}
-
-async function extractPitchData(audioBlob) {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const arrayBuffer = await audioBlob.arrayBuffer();
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-    const analyser = audioContext.createAnalyser();
-    const source = audioContext.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(analyser);
-    analyser.connect(audioContext.destination);
-
-    const dataArray = new Float32Array(analyser.fftSize);
-    analyser.getFloatTimeDomainData(dataArray);
-
-    return detectPitchChanges(dataArray);
-}
-
-function detectPitchChanges(audioData) {
-    const pitchChanges = [];
-    let lastValue = null;
-
-    for (let i = 0; i < audioData.length; i += 1024) {
-        let avg = 0;
-        for (let j = 0; j < 1024; j++) {
-            avg += Math.abs(audioData[i + j] || 0);
-        }
-        avg /= 1024;
-
-        if (lastValue !== null) {
-            if (avg > lastValue * 1.2) {
-                pitchChanges.push(1); // Up
-            } else if (avg < lastValue * 0.8) {
-                pitchChanges.push(-1); // Down
-            } else {
-                pitchChanges.push(0); // No change
-            }
-        }
-        lastValue = avg;
-    }
-
-    return pitchChanges;
-}
-
-const storedTunes = [
-    //put tune data here!!
-];
-
-function findClosestMatch(recordedPattern) {
-    let bestMatch = null;
-    let bestScore = Infinity;
-
-    storedTunes.forEach(tune => {
-        const score = comparePatterns(recordedPattern, tune.pattern);
-        if (score < bestScore) {
-            bestMatch = tune;
-            bestScore = score;
-        }
-    });
-
-    return bestMatch;
-}
 
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
@@ -413,7 +291,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             button.classList.remove("active");
         });
     });
-    document.getElementById("backToHomeFromIdentify").addEventListener("click", () => {
+    document.getElementById("backToHomeFromRecording").addEventListener("click", () => {
         switchPage("homePage");
         //make sure bottom nav buttons aren't highlighted
         document.querySelectorAll(".bottom-nav button").forEach(button => {

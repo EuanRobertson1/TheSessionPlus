@@ -277,8 +277,20 @@ body {
     margin-top: 6px;
 }
 
+.recordingContainer {
+    display: flex;
+    justify-content: center; /* Centers buttons horizontally */
+    align-items: center;
+    margin-top: 20px;
+}
 
+.tune-button {
+    min-width: 150px; /* Ensures both buttons have same width */
+    text-align: center;
+}
 
-
+#recordButton, #stopButton {
+    width: 150px;
+}
 
 

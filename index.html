@@ -10,8 +10,6 @@
         <link rel="manifest" href="manifest.json">
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
         <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-        
-
     </head>
 
     <body>
@@ -60,23 +58,25 @@
         </section>
 
         <!-- Identify tune page (Hidden Initially) -->
-        <section id="identifyTunePage" class="upcoming-events" style="display: none;">
+        <section id="myRecordingsPage" class="upcoming-events" style="display: none;">
             
-            <button id="backToHomeFromIdentify" class="back-button">
+            <button id="backToHomeFromRecording" class="back-button">
                 <span class="iconify" data-icon="tabler:arrow-back-up"></span>
             </button>
              
-            <h2>Identify a tune</h2>
-            <button id="recordButton" class="tune-button"> 
-                <span class = "iconify" data-icon="tabler:microphone-2"></span>
-                <span class = "nav-label">Record Tune</span>
-            </button>
-            <button id="stopButton" class="tune-button" style="display: none;">
-                <span class = "iconify" data-icon="tabler:microphone-2-off"></span>
-                <span class = "nav-label">Stop Recording</span>
-            </button>
+            <h2>My Recordings</h2>
+            <div id = "recordingContainer">
+                <button id="recordButton" class="tune-button"> 
+                    <span class = "iconify" data-icon="tabler:microphone-2"></span>
+                    <span class = "nav-label">Record Tune</span>
+                </button>
+                <button id="stopButton" class="tune-button" style="display: none;">
+                    <span class = "iconify" data-icon="tabler:microphone-2-off"></span>
+                    <span class = "nav-label">Stop Recording</span>
+                </button>
+            </div>  
 
-            <div id="identifyTuneList" class="scrollable-events"></div> 
+            <div id="RecordingsList" class="scrollable-events"></div> 
         </section>
 
         <!-- Bottom NavBar -->
@@ -91,9 +91,9 @@
                 <span class="nav-label">Saved Tunes</span>
             </button>
         
-            <button data-page="identifyTunePage">
+            <button data-page="myRecordingsPage">
                 <span class="iconify" data-icon="tabler:microphone" data-inline="false"></span>
-                <span class="nav-label">Identify Tune</span>
+                <span class="nav-label">My Recordings</span>
             </button>
         </nav>
 
