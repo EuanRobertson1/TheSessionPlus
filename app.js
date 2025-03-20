@@ -262,6 +262,112 @@ async function fetchNearbySessions() {
     });
 }
 
+console.log("Script loaded");
+
+// Variables for recording
+let mediaRecorder;
+let audioChunks = [];
+let recordingCount = 1; // Counter for recording labels
+
+
+// Function to start recording with mic permission check
+function startRecording() {
+    // Request mic permissions explicitly
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+        console.log("🎤 Microphone access granted.");
+
+        const options = { mimeType: "audio/mp4" };
+        mediaRecorder = new MediaRecorder(stream, options);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            addRecordingToList(audioBlob);
+        };
+
+        mediaRecorder.start();
+        console.log("🔴 Recording started...");
+
+        // Show Stop button, hide Record button
+        document.getElementById("recordButton").style.display = "none";
+        document.getElementById("stopButton").style.display = "inline-block";
+
+        // Store stream so we can stop it later
+        window.currentStream = stream;
+    })
+    .catch(error => {
+        console.error("🚨 Microphone access denied or unavailable:", error);
+        alert("Microphone access is required to record audio. Please allow mic access in your browser settings.");
+    });
+}
+
+
+// Function to stop recording
+function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+        console.log("⏹️ Recording stopped.");
+
+        // Stop the microphone stream to release it
+        if (window.currentStream) {
+            window.currentStream.getTracks().forEach(track => track.stop());
+            console.log("🎤 Microphone released.");
+        }
+
+        // Hide Stop button, show Record button
+        document.getElementById("recordButton").style.display = "inline-block";
+        document.getElementById("stopButton").style.display = "none";
+    }
+}
+
+// Function to add recording to the list
+function addRecordingToList(audioBlob) {
+    const recordingsList = document.getElementById("recordingsList");
+
+    // Create audio URL
+    const audioUrl = URL.createObjectURL(audioBlob);
+
+    // Create recording item
+    const recordingItem = document.createElement("div");
+    recordingItem.classList.add("event-box");
+    recordingItem.dataset.recordingId = recordingCount; // Store ID
+
+    recordingItem.innerHTML = `
+        <p><strong>Recording ${recordingCount}</strong></p>
+        <audio controls src="${audioUrl}"></audio>
+        <button class="delete-button" onclick="removeRecording(${recordingCount})">❌ Delete</button>
+    `;
+
+    recordingsList.appendChild(recordingItem);
+    recordingCount++; // Increment counter for next recording
+}
+
+// Function to remove recording
+function removeRecording(id) {
+    const recordingsList = document.getElementById("recordingsList");
+    const recordingItem = recordingsList.querySelector(`[data-recording-id='${id}']`);
+
+    if (recordingItem) {
+        recordingsList.removeChild(recordingItem);
+        console.log(`🗑️ Removed Recording ${id}`);
+
+        // Reduce the recording count if there are no more recordings
+        const remainingRecordings = recordingsList.querySelectorAll(".event-box").length;
+        if (remainingRecordings === 0) {
+            recordingCount = 1; // Reset count if list is empty
+        }
+    }
+}
+
+// Attach event listeners to buttons
+document.getElementById("recordButton").addEventListener("click", startRecording);
+document.getElementById("stopButton").addEventListener("click", stopRecording);
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display events
