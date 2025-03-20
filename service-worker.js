@@ -6,8 +6,8 @@ self.addEventListener('install', (event) => {
                 // 'styles.css',
                 // 'app.js',
                 // 'manifest.json',
-                new Request('icons/icon-192x192.png', { cache: 'reload' }),
-                new Request('icons/icon-512x512.png', { cache: 'reload' })
+                new Request('./icons/icon-192x192.png', { cache: 'reload' }),
+                new Request('./icons/icon-512x512.png', { cache: 'reload' })
             ]);
         })
     );

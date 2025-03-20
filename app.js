@@ -1,6 +1,7 @@
 
 console.log("Script loaded");  // Debugging statement
 
+// Function to fetch upcoming events
 async function fetchUpcomingEvents() {
     try {
         const response = await fetch("https://thesession.org/events/new?format=json&perpage=50");
@@ -17,6 +18,7 @@ async function fetchUpcomingEvents() {
 
 // Function to switch pages without affecting existing styles
 function switchPage(pageId) {
+    //Page Elements
     const searchBar = document.querySelector(".search-bar");
     const homeContent = document.querySelector("#home");
     const sessionsContent = document.querySelector("#sessionsPage");
@@ -27,17 +29,19 @@ function switchPage(pageId) {
     const backButton3 = document.querySelector("#backToHomeFromRecording");
 
     if (pageId === "sessionsPage") {
-        searchBar.style.display = "none"; // Hide search bar
-        homeContent.style.display = "none"; // Hide home content
-        sessionsContent.style.display = "block"; // Show sessions page
+        //Update what is displayed
+        searchBar.style.display = "none"; 
+        homeContent.style.display = "none"; 
+        sessionsContent.style.display = "block"; 
         savedTunesContent.style.display = "none";
         backButton.style.display = "block";
         backButton2.style.display = "none";
         backButton3.style.display = "none";
         recordingContent.style.display = "none";
-        fetchNearbySessions();
+        fetchNearbySessions();//Fetch sessions when page opens
 
     }else if (pageId === "savedTunesPage") {
+        //Update what is displayed
         homeContent.style.display = "none";
         searchBar.style.display = "none";
         sessionsContent.style.display = "none";
@@ -49,6 +53,7 @@ function switchPage(pageId) {
         loadSavedTunes(); // Load saved tunes when page opens
     }
     else if (pageId === 'myRecordingsPage') {
+        //Update what is displayed
         homeContent.style.display = "none";
         searchBar.style.display = "none";
         sessionsContent.style.display = "none";
@@ -58,10 +63,11 @@ function switchPage(pageId) {
         backButton3.style.display = "block";
         recordingContent.style.display = "block";
     }
-    else {
-        searchBar.style.display = "flex"; // Show search bar on home page
-        homeContent.style.display = "block"; // Show home content
-        sessionsContent.style.display = "none"; // Hide sessions page
+    else {//Defaults to home page
+        //Update what is displayed
+        searchBar.style.display = "flex"; 
+        homeContent.style.display = "block"; 
+        sessionsContent.style.display = "none"; 
         savedTunesContent.style.display = "none";
         backButton.style.display = "none";
         backButton2.style.display = "none";
@@ -89,6 +95,7 @@ async function searchTunes(query) {
     }
 }
 
+//Function to display search results
 function displaySearchResults(tunes) {
 
     const eventList = document.getElementById("event-list");
@@ -127,7 +134,7 @@ function displaySearchResults(tunes) {
     });
 }
 
-
+// Function to display events
 function displayEvents(events) {
     const eventList = document.getElementById("event-list");
     eventList.innerHTML = ""; // Clear previous events
@@ -156,6 +163,7 @@ function displayEvents(events) {
     });
 }
 
+//Function to save a tune
 function saveTune(tuneId) {
     let savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
 
@@ -168,6 +176,7 @@ function saveTune(tuneId) {
     }
 }
 
+//Function to load saved tunes
 async function loadSavedTunes() {
     const savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
     const savedTunesContainer = document.getElementById("saved-list");
@@ -209,6 +218,7 @@ async function loadSavedTunes() {
     });
 }
 
+//Function to remove a saved tune
 function removeTune(tuneId) {
     let savedTunes = JSON.parse(localStorage.getItem("savedTunes")) || [];
     savedTunes = savedTunes.filter(id => id !== tuneId);
@@ -217,6 +227,7 @@ function removeTune(tuneId) {
     loadSavedTunes(); // Refresh the saved tunes list
 }
 
+//Function to fetch nearby sessions
 async function fetchNearbySessions() {
     if (!navigator.geolocation) {
         console.error("Geolocation is not supported by this browser.");
@@ -261,8 +272,6 @@ async function fetchNearbySessions() {
         console.error("Error getting location:", error);
     });
 }
-
-console.log("Script loaded");
 
 // Variables for recording
 let mediaRecorder;
@@ -370,6 +379,23 @@ document.getElementById("stopButton").addEventListener("click", stopRecording);
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    console.log("📢 Disclaimer screen shown");
+
+    document.getElementById("continueButton").addEventListener("click", () => {
+        const disclaimerScreen = document.getElementById("disclaimerScreen");
+
+        // Apply fade-out effect
+        disclaimerScreen.classList.add("fade-out");
+
+        console.log("⏳ Fading out disclaimer...");
+
+        // Wait for the transition to finish, then hide the element
+        setTimeout(() => {
+            disclaimerScreen.style.display = "none";
+            console.log("✅ Disclaimer accepted, app ready.");
+        }, 600); // Matches the CSS transition time (0.6s)
+    });
+    
     // Fetch and display events
     const events = await fetchUpcomingEvents();
     displayEvents(events);
@@ -413,7 +439,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const searchButton = document.getElementById("searchButton");
 
     
-    
+    //Retursnt to home page from search results page
     document.getElementById("resetSearch").addEventListener("click", async () => {
         const events = await fetchUpcomingEvents();
         displayEvents(events);
