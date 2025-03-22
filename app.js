@@ -295,7 +295,7 @@ function startRecording() {
         };
 
         mediaRecorder.onstop = () => {
-            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            const audioBlob = new Blob(audioChunks, { type: "audio/mp4" });
             addRecordingToList(audioBlob);
         };
 
