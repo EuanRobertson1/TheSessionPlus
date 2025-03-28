@@ -300,7 +300,7 @@ function startRecording() {
         };
 
         mediaRecorder.start();
-        console.log("🔴 Recording started...");
+        console.log(" Recording started...");
 
         // Show Stop button, hide Record button
         document.getElementById("recordButton").style.display = "none";
@@ -310,7 +310,7 @@ function startRecording() {
         window.currentStream = stream;
     })
     .catch(error => {
-        console.error("🚨 Microphone access denied or unavailable:", error);
+        console.error(" Microphone access denied or unavailable:", error);
         alert("Microphone access is required to record audio. Please allow mic access in your browser settings.");
     });
 }
@@ -349,7 +349,7 @@ function addRecordingToList(audioBlob) {
     recordingItem.innerHTML = `
         <p><strong>Recording ${recordingCount}</strong></p>
         <audio controls src="${audioUrl}"></audio>
-        <button class="delete-button" onclick="removeRecording(${recordingCount})">❌ Delete</button>
+        <button class="delete-button" onclick="removeRecording(${recordingCount})"> Delete</button>
     `;
 
     recordingsList.appendChild(recordingItem);
@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Wait for the transition to finish, then hide the element
         setTimeout(() => {
             disclaimerScreen.style.display = "none";
-            console.log("✅ Disclaimer accepted, app ready.");
+            console.log(" Disclaimer accepted, app ready.");
         }, 600); // Matches the CSS transition time (0.6s)
     });
     
