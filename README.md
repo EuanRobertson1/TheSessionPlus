@@ -27,7 +27,7 @@ Created for the module CS52001 - Mobile Application Development whilst undertaki
 ---
 
 ## Using the APP
-
+*no longer being hosted here*
  Access the app via [GitHub Pages](https://euanrobertson1.github.io/TheSessionPlus/), ideally on mobile!
 
 ---
